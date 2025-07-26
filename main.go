@@ -1,6 +1,7 @@
 package main
 
 import (
+<<<<<<< HEAD
 	"bytes"
 	"image/color"
 	"image/png"
@@ -376,10 +377,22 @@ func (g *Game) Update() error {
 	}
 	g.questionBtn.Update()
 	g.rulesWindow.Update()
+=======
+	"log"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+)
+
+type Game struct{}
+
+func (g *Game) Update() error {
+>>>>>>> 45c61168719e604c59246808852360235b7c0f23
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
+<<<<<<< HEAD
 	// Scale background to cover entire screen
 	bgOpts := &ebiten.DrawImageOptions{}
 	bgBounds := g.bg.Bounds()
@@ -523,3 +536,19 @@ func main() {
 	}
 }
 
+=======
+	ebitenutil.DebugPrint(screen, "Hello, World!")
+}
+
+func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
+	return 320, 240
+}
+
+func main() {
+	ebiten.SetWindowSize(640, 480)
+	ebiten.SetWindowTitle("Hello, World!")
+	if err := ebiten.RunGame(&Game{}); err != nil {
+		log.Fatal(err)
+	}
+}
+>>>>>>> 45c61168719e604c59246808852360235b7c0f23
