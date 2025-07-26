@@ -1,0 +1,6 @@
+
+Set Game Backend Logic
+
+we'll use arrays to store the game state
+
+

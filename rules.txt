@@ -1,0 +1,22 @@
+rules of Set Card Game
+
+1. Each player gets delt 6 cards.
+2. The plaer who deals the cards gets 7 cards.
+3. The player who deals the cards goes first.
+4. The objective of the game is to minimize points.
+5. Each card has a point value.
+6. Cards numbers 2-10 are worth their number in points.
+7. Face Cards (Jack, Queen, King) are worth 10 points.
+8. Aces are worth 1 point.
+9. Players can create Set of cards that have zero points.
+10. A Set Can be made in the following ways:
+    a. All 3 or more cards are the same number.
+    b. All 3 or more cards are in a series of the same suit.
+11. Each player can at most have 6 cards at any time.
+12. players can either draw a card from the deck or take a card from the top of the discard pile.
+13. If any player has less or equal to 5 points, they can close the round and can claim the win.
+14. If a player closes the round, all other players must reveal their cards.
+15. If a player closes the round, they must show their cards and calculate their points.
+16. players can reduce their points further by making sets with other players revealed cards.
+17. Over the course of rounds, players who have a total of more than 52 points are eliminated.
+18. The game continues until only one player remains.
