@@ -279,3 +279,28 @@ func GetCardBlankPNG() []byte {
     return CardBlankPNG
 }
 
+// Avatar images (add these after the existing embeds)
+//go:embed avatars/avatar1.png
+var Avatar1PNG []byte
+
+//go:embed avatars/avatar2.png
+var Avatar2PNG []byte
+
+//go:embed avatars/avatar3.png
+var Avatar3PNG []byte
+
+//go:embed avatars/avatar4.png
+var Avatar4PNG []byte
+
+// Function to get avatar data
+func GetAvatarData() [][]byte {
+    return [][]byte{
+        Avatar1PNG,
+        Avatar2PNG,
+        Avatar3PNG,
+        Avatar4PNG,
+    }
+}
+
+
+

@@ -5,7 +5,7 @@ import (
     "setcardgame/internal/assets"
     "setcardgame/internal/graphics"
     "setcardgame/internal/ui"
-
+    "setcardgame/internal/memory"
     "github.com/hajimehoshi/ebiten/v2"
     "github.com/hajimehoshi/ebiten/v2/text/v2"
 )
@@ -21,9 +21,7 @@ type MenuScene struct {
     questionBtn   *ui.QuestionButton
     rulesWindow   *ui.RulesWindow
     roomKeyWindow *ui.RoomKeyWindow
-    
-    // Game state
-    showingSplash bool
+    playerSetupWindow *ui.PlayerSetupWindow   
 }
 
 func NewMenuScene(bg, btnNormal, btnHover, squareNormal, squareHover *ebiten.Image, font *text.GoTextFaceSource) *MenuScene {
@@ -34,6 +32,32 @@ func NewMenuScene(bg, btnNormal, btnHover, squareNormal, squareHover *ebiten.Ima
         cardImages = append(cardImages, cardImg)
     }
     
+    avatarImages := make([]*ebiten.Image, 0)
+    for _, avatarData := range assets.GetAvatarData() {
+      avatarImg := graphics.LoadImageFromBytes(avatarData)
+      if avatarImg != nil {
+        avatarImages = append(avatarImages, avatarImg)
+      }
+    }
+
+
+        // Player setup window
+        playerSetupWindow := ui.NewPlayerSetupWindow(
+        200, 100, 400, 350, // x, y, width, height
+        font, btnNormal, btnHover, avatarImages,
+        func(name string, avatar int) {
+            log.Printf("👤 Player setup complete: Name=%s, Avatar=%d", name, avatar)
+            
+            // Save all data to memory
+            memory.SetPlayerName(name)
+            memory.SetSelectedAvatar(avatar)
+            
+        },
+        func() {
+            log.Println("❌ Player setup cancelled")
+        },
+    )
+
     // Button dimensions
     buttonWidth := ScreenWidth / 5
     buttonHeight := ScreenHeight / 8
@@ -65,11 +89,15 @@ func NewMenuScene(bg, btnNormal, btnHover, squareNormal, squareHover *ebiten.Ima
         font, btnNormal, btnHover,
         func(roomKey string) {
             log.Printf("🚪 Joining room: %s", roomKey)
-        },
+            memory.SetRoomKey(roomKey)
+
+            playerSetupWindow.Open()
+          },
         func() {
             log.Println("❌ Room join cancelled")
         },
     )
+    
     
 
     // Create buttons
@@ -109,7 +137,7 @@ func NewMenuScene(bg, btnNormal, btnHover, squareNormal, squareHover *ebiten.Ima
     scene.questionBtn = questionButton
     scene.rulesWindow = rulesWindow
     scene.roomKeyWindow = roomKeyWindow
-
+    scene.playerSetupWindow = playerSetupWindow
     return scene
 }
 
@@ -127,7 +155,10 @@ func (m *MenuScene) Update() error {
     if m.roomKeyWindow != nil {
         m.roomKeyWindow.Update()
     }
-    
+    if m.playerSetupWindow != nil { 
+        m.playerSetupWindow.Update()
+      }
+
     return nil
 }
 
@@ -153,6 +184,10 @@ func (m *MenuScene) Draw(screen *ebiten.Image) {
     if m.roomKeyWindow != nil {
         m.roomKeyWindow.Draw(screen)
     }
+    if m.playerSetupWindow != nil {
+        m.playerSetupWindow.Draw(screen)
+    } 
+
   }
 func (m *MenuScene) Layout(_, _ int) (int, int) {
     return ScreenWidth, ScreenHeight
