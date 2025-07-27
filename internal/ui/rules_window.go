@@ -140,7 +140,7 @@ func (r *RulesWindow) Draw(screen *ebiten.Image) {
     scaledY := float64(r.Y) + (float64(r.Height)-scaledHeight)/2
 
     // Draw window background
-    vector.DrawFilledRect(screen, float32(scaledX), float32(scaledY), float32(scaledWidth), float32(scaledHeight), color.RGBA{240, 240, 240, 200}, false)
+    vector.DrawFilledRect(screen, float32(scaledX), float32(scaledY), float32(scaledWidth), float32(scaledHeight), color.RGBA{230, 240, 240, 200}, false)
     
     // Draw border
     vector.StrokeRect(screen, float32(scaledX), float32(scaledY), float32(scaledWidth), float32(scaledHeight), 3, color.RGBA{50, 50, 50, 255}, false)

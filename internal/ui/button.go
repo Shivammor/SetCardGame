@@ -74,11 +74,11 @@ func (b *Button) Draw(screen *ebiten.Image) {
 
     // Center text horizontally and vertically
     tx := float64(b.X) + (float64(b.Width)-advance)/2
-    ty := float64(b.Y) + float64(b.Height)/2
+    ty := float64(b.Y) + float64(b.Height)/2 - 15
 
     tOpts := &text.DrawOptions{}
     tOpts.GeoM.Translate(tx, ty)
-    tOpts.ColorScale.ScaleWithColor(color.White)
+    tOpts.ColorScale.ScaleWithColor(color.Black)
     text.Draw(screen, b.Label, face, tOpts)
 }
 

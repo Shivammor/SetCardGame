@@ -2,6 +2,7 @@ package main
 
 import (
     "log"
+    "setcardgame/internal/assets"
     "setcardgame/internal/graphics"
     "setcardgame/internal/scene"
 
@@ -9,13 +10,20 @@ import (
 )
 
 func main() {
-    // Load assets from files
-    bg := graphics.LoadImageFromFile("./assets/background.png")
-    btnNormalImg := graphics.LoadImageFromFile("./assets/UI_elemets/Default@4x.png")
-    btnHoverImg := graphics.LoadImageFromFile("./assets/UI_elemets/Hover@4x.png")
-    squareNormalImg := graphics.LoadImageFromFile("./assets/UI_elemets/Default@4x_square.png")
-    squareHoverImg := graphics.LoadImageFromFile("./assets/UI_elemets/Hover@4x_square.png")
-    fontSrc := graphics.LoadFontFromFile("./assets/FSEX300.ttf")
+    // Load assets from embedded data (same as WASM)
+    bg := graphics.LoadImageFromBytes(assets.BackgroundPNG)
+    btnNormalImg := graphics.LoadImageFromBytes(assets.DefaultButtonPNG)
+    btnHoverImg := graphics.LoadImageFromBytes(assets.HoverButtonPNG)
+    squareNormalImg := graphics.LoadImageFromBytes(assets.SquareDefaultPNG)
+    squareHoverImg := graphics.LoadImageFromBytes(assets.SquareHoverPNG)
+    fontSrc := graphics.LoadFontFromBytes(assets.FontTTF)
+
+    // Debug: Check if we have card data
+    cardData := assets.GetAllCardData()
+    log.Printf("Loaded %d card images", len(cardData))
+    if len(cardData) == 0 {
+        log.Fatal("No card images found! Check your assets/playingcards/ directory")
+    }
 
     // Create menu scene
     menuScene := scene.NewMenuScene(bg, btnNormalImg, btnHoverImg, squareNormalImg, squareHoverImg, fontSrc)

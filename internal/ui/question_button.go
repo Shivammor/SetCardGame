@@ -67,7 +67,7 @@ func (q *QuestionButton) Draw(screen *ebiten.Image) {
 
     advance, _ := text.Measure("?", face, 0)
     tx := float64(q.X) + (float64(q.Width)-advance)/2
-    ty := float64(q.Y) + float64(q.Height)/2
+    ty := float64(q.Y) + float64(q.Height)/2 - 20
 
     tOpts := &text.DrawOptions{}
     tOpts.GeoM.Translate(tx, ty)
